@@ -1,0 +1,559 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Gramica — Grille tarifaire & devis en ligne</title>
+<meta name="description" content="Consultez la grille tarifaire du studio créatif Gramica, sélectionnez vos besoins et recevez votre devis automatiquement.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+/* ===== Charte Gramica : vert forêt #1A6B52 · menthe #3DBFA0 · ambre #F5A623 · Montserrat ===== */
+:root{
+  --forest:#1A6B52; --forest-dark:#0C2B21; --mint:#3DBFA0; --mint-text:#22836C;
+  --amber:#F5A623; --amber-text:#B27407; --ink:#0B1512; --paper:#F6F4EE;
+  --line:#E6E3D9; --grey:#7C857F;
+}
+*{box-sizing:border-box}
+body{margin:0;font-family:'Montserrat',system-ui,sans-serif;background:var(--paper);color:var(--ink);font-weight:400}
+button{font-family:inherit}
+h1,h2,h3,b,strong,th{font-weight:700}
+
+/* ---- Hero ---- */
+header{background:var(--forest-dark);color:#fff;position:relative;overflow:hidden}
+.topbar{padding:26px clamp(20px,5vw,64px) 0;display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
+.topbar .tag{font-size:11px;letter-spacing:.2em;text-transform:uppercase;opacity:.6}
+.logo{display:flex;align-items:center;gap:10px}
+.logo .name{font-weight:700;font-size:21px;letter-spacing:-.01em;line-height:1}
+.logo .base{font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--mint);font-weight:600;margin-top:3px}
+.hero{padding:clamp(36px,7vw,80px) clamp(20px,5vw,64px) clamp(40px,6vw,72px);max-width:1280px;margin:0 auto;position:relative}
+.hero h1{font-size:clamp(32px,5.6vw,62px);line-height:1.06;letter-spacing:-.03em;margin:0;max-width:820px;animation:up .5s ease both}
+.hero h1 em{font-style:normal;color:var(--mint);position:relative}
+.hero h1 em::after{content:"";position:absolute;left:0;right:0;bottom:-6px;height:5px;
+  background:repeating-linear-gradient(90deg,var(--amber) 0 10px,transparent 10px 14px);
+  transform-origin:left;animation:draw .7s .45s ease both}
+.hero p{font-size:clamp(15px,1.6vw,17.5px);color:#AFC4BB;max-width:540px;line-height:1.65;margin:22px 0 30px;animation:up .5s .1s ease both}
+.hero .cta{animation:up .5s .2s ease both}
+.hero-mark{position:absolute;right:clamp(8px,4vw,56px);top:50%;transform:translateY(-50%);opacity:.1;pointer-events:none}
+@keyframes up{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+@keyframes draw{from{transform:scaleX(0)}to{transform:scaleX(1)}}
+
+.tickerwrap{border-top:1px solid rgba(255,255,255,.12);overflow:hidden;white-space:nowrap;padding:12px 0;background:rgba(255,255,255,.03)}
+.ticker{display:inline-block;animation:scroll 36s linear infinite}
+.ticker span{font-weight:700;font-size:12.5px;letter-spacing:.14em;text-transform:uppercase;margin:0 26px}
+.ticker span:nth-child(odd){color:var(--mint)} .ticker span:nth-child(even){color:var(--amber)}
+.ticker i{font-style:normal;color:rgba(255,255,255,.35);margin-left:26px}
+@keyframes scroll{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+
+/* ---- Layout ---- */
+.layout{display:grid;grid-template-columns:minmax(0,1fr) 370px;gap:30px;padding:36px clamp(16px,4vw,64px) 140px;max-width:1280px;margin:0 auto}
+.eyebrow{font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--grey);font-weight:700;margin-bottom:14px}
+
+/* ---- Sections ---- */
+section.pole{background:#fff;margin-bottom:16px;box-shadow:0 1px 4px rgba(12,43,33,.07);transition:box-shadow .25s}
+section.pole.open{box-shadow:0 8px 32px color-mix(in srgb,var(--acc) 15%,transparent)}
+.sec-btn{width:100%;display:flex;align-items:center;gap:18px;padding:20px 24px;background:none;border:none;cursor:pointer;text-align:left;border-left:5px solid transparent;transition:border-color .2s}
+section.pole.open .sec-btn{border-left-color:var(--acc)}
+.sec-num{font-weight:700;color:#CFCCC0;font-size:19px;min-width:34px;transition:color .2s}
+section.pole.open .sec-num,.sec-btn:hover .sec-num{color:var(--acc)}
+.sec-title{font-weight:700;font-size:17px;display:block}
+.sec-tag{font-size:12.5px;color:var(--grey)}
+.sec-count{background:var(--acc);color:#fff;font-size:11.5px;font-weight:700;padding:3px 9px;border-radius:999px}
+.chev{color:var(--grey);font-size:20px;transition:transform .2s}
+section.pole.open .chev{transform:rotate(90deg)}
+.sec-body{display:grid;grid-template-rows:0fr;transition:grid-template-rows .3s ease}
+section.pole.open .sec-body{grid-template-rows:1fr}
+.sec-body>div{overflow:hidden}
+.sec-inner{padding:2px 24px 24px}
+.grp-title{font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--acc);font-weight:700;margin:20px 0 8px;display:flex;align-items:center;gap:8px}
+.grp-title::before{content:"";width:14px;height:2px;background:var(--acc);display:inline-block}
+
+/* ---- Items ---- */
+.item{display:flex;align-items:flex-start;gap:12px;padding:12px 14px;background:#FBFAF5;margin-bottom:7px;border:1.5px solid var(--line);cursor:pointer;transition:border-color .15s,background .15s,transform .15s}
+.item:hover{transform:translateY(-1px)}
+.item.on{border-color:var(--acc);background:color-mix(in srgb,var(--acc) 6%,#fff)}
+.chk{width:19px;height:19px;margin-top:2px;flex-shrink:0;border:2px solid #C6C3B8;background:#fff;color:#fff;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;border-radius:50%;transition:background .15s}
+.item.on .chk{border:none;background:var(--acc)}
+.item .nm{font-weight:600;font-size:14px}
+.item .ds{font-size:12.5px;color:var(--grey);margin-top:2px;line-height:1.45}
+.item .pr{font-weight:700;font-size:14.5px;white-space:nowrap}
+.item .pr.sd{color:var(--acc)}
+.badge{font-size:10px;background:var(--forest-dark);color:#fff;padding:1px 7px;margin-left:8px;vertical-align:middle;letter-spacing:.06em}
+.qtyrow{margin-top:8px;display:flex;align-items:center;gap:8px}
+.qbtn{width:25px;height:25px;border:1.5px solid #C6C3B8;background:#fff;cursor:pointer;font-weight:700;line-height:1}
+
+/* ---- Packages ---- */
+.pkgs{display:grid;grid-template-columns:repeat(auto-fit,minmax(165px,1fr));gap:10px}
+.pkg{position:relative;border:1.5px solid var(--line);background:#FBFAF5;padding:14px 15px;cursor:pointer;transition:border-color .15s,transform .15s}
+.pkg:hover{transform:translateY(-1px)}
+.pkg.on{border:2px solid var(--acc);background:color-mix(in srgb,var(--acc) 5%,#fff)}
+.pkg .pop{position:absolute;top:-9px;right:10px;background:var(--amber);color:var(--ink);font-size:9.5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:2px 8px}
+.pkg .price{font-weight:700;font-size:21px;margin:5px 0;letter-spacing:-.02em}
+.pkg .price small{font-size:11px;font-weight:400;color:var(--grey)}
+.pkg ul{margin:0;padding-left:15px;font-size:11.5px;color:#5C665F;line-height:1.55}
+
+/* ---- Ticket ---- */
+.ticket{position:sticky;top:20px;align-self:start}
+.receipt{background:#fff;box-shadow:0 10px 40px rgba(12,43,33,.16)}
+.r-head{background:var(--forest-dark);color:#fff;padding:16px 20px}
+.r-head .num{font-size:11.5px;color:var(--amber);font-weight:700;letter-spacing:.08em}
+.r-lines{padding:16px 20px;max-height:240px;overflow-y:auto;border-bottom:1.5px dashed #C6C3B8}
+.r-line{display:flex;justify-content:space-between;gap:10px;font-size:13px;padding:6px 0;border-bottom:1px solid #F0EDE4;animation:linein .25s ease both}
+@keyframes linein{from{opacity:0;transform:translateX(-8px)}to{opacity:1;transform:none}}
+.dot{width:7px;height:7px;margin-top:5px;flex-shrink:0;border-radius:50%;display:inline-block}
+.r-tot{padding:16px 20px}
+.trow{display:flex;justify-content:space-between;font-size:13.5px;padding:4px 0;font-variant-numeric:tabular-nums}
+.trow.big{font-size:15px;border-top:2px solid var(--forest);margin-top:6px;padding-top:10px}
+.trow.big b{color:var(--forest)}
+.field{border:1.5px solid #DDD9CE;padding:9px 12px;font-size:13.5px;font-family:inherit;background:#FBFAF5;outline:none;width:100%;transition:border-color .15s}
+.field:focus{border-color:var(--forest)}
+.fields{margin-top:14px;display:grid;gap:8px}
+.zigzag{height:12px;background:
+  linear-gradient(-45deg,transparent 8px,#fff 0) 0 0/16px 12px repeat-x,
+  linear-gradient(45deg,transparent 8px,#fff 0) 8px 0/16px 12px repeat-x;
+  filter:drop-shadow(0 4px 3px rgba(12,43,33,.08))}
+.empty{text-align:center;padding:18px 0;color:var(--grey);font-size:13px;line-height:1.5}
+.hint{font-size:11.5px;color:var(--grey);margin:8px 0 0}
+
+/* ---- Boutons ---- */
+.btn{background:var(--forest);color:#fff;padding:12px 24px;font-weight:700;font-size:14px;text-decoration:none;display:inline-block;cursor:pointer;text-align:center;border:none;transition:transform .15s,box-shadow .15s}
+.btn:hover:not(:disabled){transform:translateY(-2px);box-shadow:0 6px 18px rgba(26,107,82,.4)}
+.btn:disabled{opacity:.35;cursor:not-allowed}
+.btn.ghost{background:none;border:1.5px solid #C6C3B8;color:var(--ink)}
+.btn.plain{background:none;border:none;color:var(--ink)}
+:focus-visible{outline:2.5px solid var(--amber);outline-offset:2px}
+
+/* ---- Barre mobile ---- */
+.mobilebar{position:fixed;bottom:0;left:0;right:0;background:var(--forest-dark);color:#fff;padding:13px 18px;display:none;justify-content:space-between;align-items:center;gap:12px;box-shadow:0 -6px 24px rgba(0,0,0,.25);z-index:50}
+.mobilebar b{font-size:16px;color:var(--amber)}
+
+/* ---- Devis ---- */
+#devisView{display:none;background:var(--forest-dark);min-height:100vh;padding:40px 16px}
+#devisView.show{display:block}
+.doc{max-width:800px;margin:0 auto;background:#FFFEFA;box-shadow:0 12px 60px rgba(0,0,0,.5);animation:up .5s ease both}
+.d-head{background:var(--forest-dark);color:#fff;padding:30px 44px;display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:16px}
+.d-head .dn{font-weight:700;font-size:17px;color:var(--amber)}
+.d-head .dd{opacity:.7;font-size:13px;margin-top:4px}
+.d-meta{padding:30px 44px 8px;display:flex;gap:48px;font-size:13.5px;flex-wrap:wrap}
+.lbl{font-size:10.5px;letter-spacing:.18em;text-transform:uppercase;color:#9AA19B;font-weight:700;margin-bottom:4px}
+.d-body{padding:22px 44px}
+.d-body table{width:100%;border-collapse:collapse;font-size:13.5px}
+.d-body thead tr{border-bottom:2.5px solid var(--forest);text-align:left}
+.d-body th{padding:9px 8px 9px 0;font-size:11px;letter-spacing:.14em;text-transform:uppercase}
+.d-body tbody tr{border-bottom:1px solid var(--line)}
+.d-body td{padding:11px 8px 11px 0}
+.d-tots{display:flex;justify-content:flex-end;margin-top:20px}
+.d-tots>div{width:320px}
+.d-total{background:var(--forest);color:#fff;padding:12px 14px;margin-top:8px}
+.d-total b{font-size:16px}
+.d-warn{font-size:12.5px;color:var(--amber-text);background:#FCF3DD;padding:12px 16px;margin-top:18px;border-left:3px solid var(--amber)}
+.d-legal{font-size:11.5px;color:#9AA19B;margin-top:26px;line-height:1.65}
+.d-actions{padding:24px 44px 34px;display:flex;gap:12px;flex-wrap:wrap}
+
+@media (max-width:900px){
+  .layout{grid-template-columns:1fr}
+  .ticket{position:static}
+  .mobilebar{display:flex}
+  .hero-mark{display:none}
+  .d-head,.d-meta,.d-body,.d-actions{padding-left:22px;padding-right:22px}
+}
+@media print{
+  .no-print{display:none !important}
+  body,#devisView{background:#fff !important;padding:0 !important}
+  .doc{box-shadow:none !important;max-width:100% !important}
+  #catalogView{display:none !important}
+  #devisView{display:block !important}
+}
+@media (prefers-reduced-motion:reduce){*{animation:none !important;transition:none !important}}
+</style>
+</head>
+<body>
+
+<!-- ================= VUE CATALOGUE ================= -->
+<div id="catalogView">
+<header>
+  <div class="topbar">
+    <div class="logo">
+      <svg width="34" height="34" viewBox="0 0 40 40" aria-hidden="true">
+        <path d="M20 2 A18 18 0 1 0 20 38 L20 2 Z" fill="#1A6B52"/>
+        <path d="M22 14 h11 v18 l-5.5 -5.5 L22 32 Z" fill="#3DBFA0"/>
+        <circle cx="30" cy="8" r="5" fill="#F5A623"/>
+      </svg>
+      <div><div class="name">Gramica</div><div class="base">Les leaders de la Programmatique</div></div>
+    </div>
+    <div class="tag">Studio créatif · Grille tarifaire</div>
+  </div>
+  <div class="hero">
+    <h1>Votre projet,<br>chiffré <em>en direct</em>.</h1>
+    <p>Parcourez la grille tarifaire du studio, cochez ce dont vous avez besoin — identité, web, social, SEO — et recevez votre devis en trois minutes. Tarifs HT, sans surprise.</p>
+    <button class="btn cta" onclick="document.getElementById('catalog').scrollIntoView({behavior:'smooth'})">Composer mon devis ↓</button>
+    <div class="hero-mark">
+      <svg width="260" height="260" viewBox="0 0 40 40" aria-hidden="true">
+        <path d="M20 2 A18 18 0 1 0 20 38 L20 2 Z" fill="#1A6B52"/>
+        <path d="M22 14 h11 v18 l-5.5 -5.5 L22 32 Z" fill="#3DBFA0"/>
+        <circle cx="30" cy="8" r="5" fill="#F5A623"/>
+      </svg>
+    </div>
+  </div>
+  <div class="tickerwrap" aria-hidden="true"><div class="ticker" id="ticker"></div></div>
+  <svg width="100%" height="12" preserveAspectRatio="none" viewBox="0 0 1680 12" style="display:block" aria-hidden="true" id="band-top"></svg>
+</header>
+
+<div class="layout" id="catalog">
+  <main>
+    <div class="eyebrow">Catalogue — 5 pôles</div>
+    <div id="sections"></div>
+  </main>
+
+  <aside class="ticket">
+    <div class="receipt">
+      <div class="r-head">
+        <div style="display:flex;justify-content:space-between;align-items:center">
+          <span style="font-weight:700;font-size:14px;letter-spacing:.04em">VOTRE DEVIS</span>
+          <span class="num" id="devisNumTag"></span>
+        </div>
+        <div style="font-size:11.5px;opacity:.6;margin-top:2px" id="lineCount">0 ligne · se construit en direct</div>
+      </div>
+      <div class="r-lines" id="ticketLines"></div>
+      <div class="r-tot">
+        <div class="trow"><span>Ponctuel</span><b id="tOne">0 HT</b></div>
+        <div class="trow"><span>Mensuel</span><b id="tMon">0 HT /mois</b></div>
+        <div class="trow big"><span>Total</span><b id="tAll">0 HT</b></div>
+        <div class="fields">
+          <input class="field" id="cNom" placeholder="Votre nom *">
+          <input class="field" id="cEnt" placeholder="Entreprise">
+          <input class="field" id="cEmail" type="email" placeholder="Email *">
+          <input class="field" id="cTel" placeholder="Téléphone">
+          <textarea class="field" id="cNote" style="min-height:60px;resize:vertical" placeholder="Précisions sur votre projet (facultatif)"></textarea>
+        </div>
+        <button class="btn" id="goDevis" style="width:100%;margin-top:12px" disabled>Générer mon devis →</button>
+        <p class="hint" id="hint">Sélectionnez au moins une prestation et renseignez nom + email.</p>
+      </div>
+      <div class="zigzag" aria-hidden="true"></div>
+    </div>
+  </aside>
+</div>
+
+<div class="mobilebar no-print">
+  <div style="font-size:13.5px"><b id="mTotal">0 HT</b> <span id="mMon" style="opacity:.65"></span></div>
+  <button class="btn" id="goDevisM" style="padding:10px 20px" disabled>Devis →</button>
+</div>
+</div>
+
+<!-- ================= VUE DEVIS ================= -->
+<div id="devisView">
+  <div class="doc">
+    <div class="d-head">
+      <div class="logo">
+        <svg width="34" height="34" viewBox="0 0 40 40" aria-hidden="true">
+          <path d="M20 2 A18 18 0 1 0 20 38 L20 2 Z" fill="#1A6B52"/>
+          <path d="M22 14 h11 v18 l-5.5 -5.5 L22 32 Z" fill="#3DBFA0"/>
+          <circle cx="30" cy="8" r="5" fill="#F5A623"/>
+        </svg>
+        <div><div class="name" style="color:#fff">Gramica</div><div class="base">Les leaders de la Programmatique</div></div>
+      </div>
+      <div style="text-align:right">
+        <div class="dn" id="dNum"></div>
+        <div class="dd" id="dDate"></div>
+        <div class="dd" id="dValid"></div>
+      </div>
+    </div>
+    <svg width="100%" height="14" preserveAspectRatio="none" viewBox="0 0 1680 14" style="display:block" aria-hidden="true" id="band-d1"></svg>
+
+    <div class="d-meta">
+      <div><div class="lbl">Client</div><div id="dClient"></div></div>
+      <div><div class="lbl">Prestataire</div><div style="font-weight:700;font-size:15px">Gramica — Studio créatif</div><div style="color:var(--grey)">[Adresse · Contact à compléter]</div></div>
+    </div>
+
+    <div class="d-body">
+      <table>
+        <thead><tr><th>Prestation</th><th style="text-align:center;width:50px">Qté</th><th style="text-align:right;width:110px">Montant HT</th></tr></thead>
+        <tbody id="dLines"></tbody>
+      </table>
+      <div class="d-tots"><div>
+        <div class="trow"><span>Prestations ponctuelles</span><b id="dOne"></b></div>
+        <div class="trow" id="dMonRow"><span>Abonnements mensuels</span><b id="dMon"></b></div>
+        <div class="trow d-total"><span style="font-weight:700">Total à l'engagement</span><b id="dAll"></b></div>
+      </div></div>
+      <p class="d-warn" id="dWarn" style="display:none"></p>
+      <div id="dNoteWrap" style="display:none;margin-top:18px;font-size:13px"><div class="lbl">Précisions du client</div><p id="dNote" style="white-space:pre-wrap;color:#37423C"></p></div>
+      <p class="d-legal">Tarifs hors taxes — devise et TVA précisées à la confirmation. Nom de domaine, hébergement et templates premium à la charge du client (gestion possible par Gramica). Révisions : allers-retours inclus selon les prestations, au-delà 20 / h HT. Ce document est une estimation générée automatiquement ; il vaut demande de devis et sera confirmé par le studio.</p>
+    </div>
+    <svg width="100%" height="14" preserveAspectRatio="none" viewBox="0 0 1680 14" style="display:block;transform:scaleY(-1)" aria-hidden="true" id="band-d2"></svg>
+
+    <div class="d-actions no-print">
+      <a class="btn" id="mailBtn" href="#">Envoyer la demande au studio</a>
+      <button class="btn ghost" onclick="window.print()">Imprimer / PDF</button>
+      <button class="btn plain" id="backBtn">← Modifier la sélection</button>
+    </div>
+  </div>
+</div>
+
+<script>
+/* ================== CONFIGURATION ================== */
+const STUDIO_EMAIL = "studio@gramica.com"; // ← remplacer par l'adresse réelle du studio
+const FOREST="#1A6B52", MINT_T="#22836C", AMBER_T="#B27407";
+
+/* ================== DONNÉES — grille tarifaire V1 ================== */
+const CATALOG=[
+ {id:"graphisme",num:"01",title:"Identité visuelle & création graphique",tagline:"Logo, branding, print, social — le cœur du studio.",accent:FOREST,groups:[
+  {title:"Stratégie & direction artistique",items:[
+   {id:"da",name:"Direction artistique de projet",desc:"1 moodboard · 1 planche d'intentions · 1 document de ligne graphique (PDF 8–10 p.)",price:350}]},
+  {title:"Logo & branding",items:[
+   {id:"logo-simple",name:"Logo — Création simple",desc:"2 pistes créatives → 1 logo final · 2 A/R · formats PNG, JPG, PDF print",price:350},
+   {id:"logo-complet",name:"Logo — Identité complète",desc:"3 pistes créatives → 1 logo final · 3 déclinaisons (couleur, N&B, icône) · formats AI, PDF, PNG, SVG",price:650},
+   {id:"charte",name:"Charte graphique complète",desc:"Logo + déclinaisons · palette 5–6 couleurs · 2 typographies · 3 applications · mini brand book (15–20 p.)",price:1200}]},
+  {title:"Création digitale",items:[
+   {id:"visuel-unit",name:"Visuel réseaux sociaux",desc:"1 création, 1 format au choix · 1 A/R inclus",price:60,qty:true,unit:"visuel"},
+   {id:"pack-rs",name:"Pack réseaux sociaux (10 visuels)",desc:"10 créations · 2 formats chacune (jusqu'à 20 fichiers)",price:400},
+   {id:"bannieres",name:"Bannières de campagne (Web / Ads / Meta)",desc:"1 concept décliné en 6 formats standards",price:500},
+   {id:"gif",name:"Création de GIF",desc:"1 GIF animé (jusqu'à 5 s)",price:50,qty:true,unit:"GIF"}]},
+  {title:"Documents & print",items:[
+   {id:"supports",name:"Supports graphiques d'entreprise",desc:"6 supports : modèle PowerPoint (5 gabarits), modèle Word, carte de visite R/V, en-tête, enveloppe, signature e-mail",price:500},
+   {id:"flyer",name:"Flyer / Affiche",desc:"1 création R ou R/V · fichier HD print + web",price:150,qty:true,unit:"création"},
+   {id:"brochure",name:"Brochure / Plaquette (4 pages)",desc:"Mise en page · fichiers print HD + web",price:250,qty:true,unit:"document"}]},
+  {title:"Maquettes web (design seul)",items:[
+   {id:"maq-lp",name:"Maquette Landing Page (UI)",desc:"1 page, desktop + mobile · fichier Figma",price:150},
+   {id:"maq-site",name:"Maquette site web (UI)",desc:"Jusqu'à 5 écrans clés, desktop + mobile · bibliothèque de composants · Figma",price:200}]}]},
+ {id:"landing",num:"02",title:"Création de landing page",tagline:"Une page, un objectif : convertir.",accent:MINT_T,groups:[
+  {title:"Offre complète — 700 HT",items:[
+   {id:"lp-complete",name:"Landing page complète",desc:"Cadrage stratégique · copywriting · design & UX · développement, formulaire & tracking · SEO on-page et mise en ligne offerts",price:700}]},
+  {title:"Ou par phase",items:[
+   {id:"lp-cadrage",name:"Cadrage & préparation",desc:"Brief stratégique · analyse cible & offre · reco UX et tunnel de conversion",price:100},
+   {id:"lp-copy",name:"Contenus & copywriting",desc:"Structuration · rédaction/optimisation · hiérarchisation persuasive",price:150},
+   {id:"lp-design",name:"Design & UX",desc:"Design orienté conversion · responsive multi-device",price:150},
+   {id:"lp-dev",name:"Développement & intégration",desc:"CMS · formulaire avancé · connexion e-mail/CRM · performance",price:300}]}]},
+ {id:"site",num:"03",title:"Création de site internet",tagline:"Du one page à l'e-commerce.",accent:AMBER_T,groups:[
+  {title:"Conception",items:[
+   {id:"site-etude",name:"Étude technique",desc:"Cahier des charges · choix du CMS",price:50},
+   {id:"site-archi",name:"Architecture & prototypage",desc:"Arborescence · wireframes · UI/UX · prototype interactif",price:200},
+   {id:"site-charte",name:"Charte graphique du site",desc:"Charte du site · traitement des images fournies",price:100}]},
+  {title:"Développement",items:[
+   {id:"site-onepage",name:"Site One Page",desc:"Intégration complète · sécurisation · performance · tests multi-appareils",price:700},
+   {id:"site-vitrine",name:"Site vitrine",desc:"Mêmes livrables, périmètre multi-pages",price:1500},
+   {id:"site-media",name:"Site média / webzine / blog",desc:"Périmètre défini ensemble",surDevis:true},
+   {id:"site-ecom",name:"Site e-commerce",desc:"Périmètre défini ensemble",surDevis:true},
+   {id:"site-app",name:"Application mobile & web",desc:"Périmètre défini ensemble",surDevis:true}]},
+  {title:"Maintenance & évolutions",items:[
+   {id:"site-audit",name:"Audit de site",desc:"Analyse des performances et ajustements",price:200},
+   {id:"site-maj",name:"Mise à jour complète",desc:"CMS & plugins · correctifs de sécurité · contenu · compatibilité",price:500},
+   {id:"site-chatbot",name:"Insertion de chatbot",desc:"À partir de 350 — chiffré selon le besoin",surDevis:true}]}]},
+ {id:"cm",num:"04",title:"Community management",tagline:"Vos réseaux, animés chaque jour.",accent:FOREST,
+  packages:{key:"cm",label:"Forfaits mensuels — choisissez une formule",choices:[
+   {id:"cm-basic",label:"Basic",price:295,features:["1 réseau géré","2 publications / semaine","10 visuels / mois","Ligne éditoriale commune","Bilan annuel"]},
+   {id:"cm-starter",label:"Starter",price:600,features:["2 réseaux gérés","3 publications / semaine","15 visuels / mois","1 vidéo ou reel / semaine","Bilan trimestriel"]},
+   {id:"cm-essential",label:"Essential",price:1000,pop:true,features:["4 réseaux gérés","4 publications / semaine","20 visuels / mois","2 reels + 5 stories / semaine","Audit initial + charte des réseaux","Modération 30 min / jour","Bilan mensuel"]},
+   {id:"cm-essplus",label:"Essential +",price:1500,features:["Réseaux illimités","6 publications / semaine","25 visuels / mois","3 reels + 10 stories / semaine","Audit initial + charte des réseaux","Modération 1 h / jour","Bilan mensuel"]}]},
+  groups:[{title:"Options à la carte (/mois)",items:[
+   {id:"cmo-audit",name:"Audit des réseaux sociaux",desc:"En début de collaboration",price:50},
+   {id:"cmo-ligne",name:"Ligne éditoriale différenciée par réseau",price:75,monthly:true},
+   {id:"cmo-visuels",name:"Visuels adaptés à chaque réseau (8 publications)",price:200,monthly:true},
+   {id:"cmo-stories",name:"Stories adaptées à chaque réseau (8 stories)",price:120,monthly:true},
+   {id:"cmo-reels",name:"Vidéos ou reels (4 unités)",price:180,monthly:true},
+   {id:"cmo-veille",name:"Veille et recherche de contenu",price:75,monthly:true},
+   {id:"cmo-anim",name:"Animation & modération (30 min à 1 h / jour)",price:75,monthly:true},
+   {id:"cmo-rapport",name:"Rapports et bilans",price:50,monthly:true}]}]},
+ {id:"seo",num:"05",title:"SEO & création de contenu",tagline:"Être trouvé, être lu.",accent:MINT_T,
+  packages:{key:"seo",label:"Forfaits SEO mensuels — choisissez une formule",choices:[
+   {id:"seo-basic",label:"SEO Basic",price:300,features:["Audit technique","Plan d'action basic"]},
+   {id:"seo-starter",label:"SEO Starter",price:1000,pop:true,features:["Audit complet + rapport des positions","Plan d'action expert","Mots-clés + netlinking","Optimisation, pages, bugs","Contenu Basic inclus","Reporting mensuel"]},
+   {id:"seo-essentiel",label:"SEO Essentiel",price:1500,features:["Audit complet + rapport des positions","Plan d'action expert","Mots-clés + netlinking","Optimisation, pages, bugs","Contenu Starter inclus","Reporting mensuel + recommandations"]}]},
+  packages2:{key:"ct",label:"Création de contenu (articles de blog) — choisissez une formule",choices:[
+   {id:"ct-basic",label:"Contenu Basic",price:250,features:["5 articles / mois"]},
+   {id:"ct-starter",label:"Contenu Starter",price:400,features:["10 articles / mois","Thématiques + mise en ligne","Déclinaison réseaux sociaux"]},
+   {id:"ct-essentiel",label:"Contenu Essentiel",price:750,features:["20 articles / mois","Thématiques + mise en ligne","Déclinaison réseaux sociaux"]}]},
+  groups:[{title:"Options à la carte (/mois)",items:[
+   {id:"seoo-them",name:"Choix des thématiques adaptées à la cible",price:25,monthly:true},
+   {id:"seoo-article",name:"Rédaction d'articles",desc:"1 article / mois",price:50,monthly:true,qty:true,unit:"article"},
+   {id:"seoo-mel",name:"Gestion de la mise en ligne des articles",price:50,monthly:true},
+   {id:"seoo-decl",name:"Déclinaison des articles en publications RS",price:100,monthly:true}]}]}
+];
+
+const ALL={};
+CATALOG.forEach(s=>{
+ (s.groups||[]).forEach(g=>g.items.forEach(it=>ALL[it.id]={...it,section:s.title,accent:s.accent}));
+ [s.packages,s.packages2].forEach(p=>p&&p.choices.forEach(c=>ALL[c.id]={...c,name:"Forfait "+c.label,monthly:true,section:s.title,accent:s.accent}));
+});
+
+/* ================== ÉTAT ================== */
+const sel={}; const pkg={cm:null,seo:null,ct:null};
+let openSection="graphisme";
+const pad=n=>String(n).padStart(2,"0");
+const now=new Date();
+const DEVIS_NUM=`GRA-${now.getFullYear()}${pad(now.getMonth()+1)}${pad(now.getDate())}-${Math.floor(100+Math.random()*900)}`;
+const fmt=n=>n.toLocaleString("fr-FR");
+
+/* ================== RENDU ================== */
+function bands(){
+ const mk=(el,h)=>{
+  let s="";
+  for(let i=0;i<60;i++){const x=i*28;
+   if(i%3===0)s+=`<path d="M${x} ${h} A14 ${h} 0 0 1 ${x+28} ${h} Z" fill="#1A6B52"/>`;
+   else if(i%3===1)s+=`<circle cx="${x+14}" cy="${h/2}" r="${h/2-2}" fill="#F5A623"/>`;
+   else s+=`<path d="M${x+8} 0 h12 v${h} l-6 -${h/2.5} l-6 ${h/2.5} Z" fill="#3DBFA0"/>`;}
+  document.getElementById(el).innerHTML=s;};
+ mk("band-top",12);mk("band-d1",14);mk("band-d2",14);
+}
+function ticker(){
+ const S=["Identité visuelle","Logo & branding","Landing pages","Sites internet","Community management","SEO","Print","Social media","Maquettes UI","Contenu éditorial"];
+ document.getElementById("ticker").innerHTML=[...S,...S].map(x=>`<span>${x}<i>●</i></span>`).join("");
+}
+
+function renderSections(){
+ const host=document.getElementById("sections");
+ host.innerHTML=CATALOG.map(s=>{
+  const nSel=linesFor().filter(l=>l.section===s.title).length;
+  const open=openSection===s.id;
+  let inner="";
+  [ [s.packages,s.packages?.key], [s.packages2,s.packages2?.key] ].forEach(([p,key])=>{
+   if(!p)return;
+   inner+=`<div class="grp-title">${p.label}</div><div class="pkgs">`+p.choices.map(c=>`
+    <div class="pkg ${pkg[key]===c.id?"on":""}" role="button" tabindex="0" data-pkg="${key}" data-id="${c.id}">
+     ${c.pop?'<span class="pop">Populaire</span>':""}
+     <div style="display:flex;justify-content:space-between;align-items:baseline"><b style="font-size:13.5px">${c.label}</b>${pkg[key]===c.id?`<span style="color:${s.accent};font-weight:700">✓</span>`:""}</div>
+     <div class="price">${fmt(c.price)}<small> HT/mois</small></div>
+     <ul>${c.features.map(f=>`<li>${f}</li>`).join("")}</ul>
+    </div>`).join("")+"</div>";
+  });
+  (s.groups||[]).forEach(g=>{
+   inner+=`<div class="grp-title">${g.title}</div>`+g.items.map(it=>{
+    const q=sel[it.id]||0,on=q>0;
+    return `<div class="item ${on?"on":""}" role="button" tabindex="0" data-item="${it.id}">
+     <div class="chk">${on?"✓":""}</div>
+     <div style="flex:1;min-width:0">
+      <div class="nm">${it.name}${it.monthly?'<span class="badge">/mois</span>':""}</div>
+      ${it.desc?`<div class="ds">${it.desc}</div>`:""}
+      ${on&&it.qty?`<div class="qtyrow" data-stop="1">
+        <button class="qbtn" data-q="-1" data-id="${it.id}" aria-label="Diminuer">−</button>
+        <b style="min-width:20px;text-align:center">${q}</b>
+        <button class="qbtn" data-q="1" data-id="${it.id}" aria-label="Augmenter">+</button>
+        <span style="font-size:12px;color:var(--grey)">${it.unit}${q>1?"s":""}</span></div>`:""}
+     </div>
+     <div class="pr ${it.surDevis?"sd":""}">${it.surDevis?"Sur devis":fmt(it.price)+" HT"}</div>
+    </div>`;}).join("");
+  });
+  return `<section class="pole ${open?"open":""}" style="--acc:${s.accent}" data-sec="${s.id}">
+   <button class="sec-btn" data-toggle="${s.id}">
+    <span class="sec-num">${s.num}</span>
+    <span style="flex:1"><span class="sec-title">${s.title}</span><span class="sec-tag">${s.tagline}</span></span>
+    ${nSel>0?`<span class="sec-count">${nSel}</span>`:""}
+    <span class="chev">›</span>
+   </button>
+   <div class="sec-body"><div><div class="sec-inner">${inner}</div></div></div>
+  </section>`;
+ }).join("");
+}
+
+function linesFor(){
+ const l=[];
+ Object.entries(sel).forEach(([id,q])=>{const it=ALL[id];if(it)l.push({...it,q,total:it.surDevis?null:it.price*q});});
+ Object.values(pkg).forEach(id=>{if(id&&ALL[id])l.push({...ALL[id],q:1,total:ALL[id].price});});
+ return l;
+}
+
+function renderTicket(){
+ const lines=linesFor();
+ const one=lines.filter(l=>!l.monthly&&!l.surDevis).reduce((a,l)=>a+l.total,0);
+ const mon=lines.filter(l=>l.monthly&&!l.surDevis).reduce((a,l)=>a+l.total,0);
+ document.getElementById("lineCount").textContent=`${lines.length} ligne${lines.length>1?"s":""} · se construit en direct`;
+ const host=document.getElementById("ticketLines");
+ host.innerHTML=lines.length===0
+  ?`<div class="empty"><svg width="54" height="54" viewBox="0 0 54 54" fill="none" style="margin:0 auto 10px;display:block;opacity:.55">
+     <rect x="10" y="6" width="34" height="42" stroke="#7C857F" stroke-width="2" stroke-dasharray="4 3"/>
+     <line x1="17" y1="18" x2="37" y2="18" stroke="#1A6B52" stroke-width="2.5"/>
+     <line x1="17" y1="26" x2="33" y2="26" stroke="#3DBFA0" stroke-width="2"/>
+     <line x1="17" y1="34" x2="35" y2="34" stroke="#F5A623" stroke-width="2"/></svg>
+     Votre ticket est vide.<br>Cochez des prestations : elles s'ajoutent ici.</div>`
+  :lines.map(l=>`<div class="r-line"><span style="color:#37423C;display:flex;gap:8px;align-items:flex-start">
+     <span class="dot" style="background:${l.accent}"></span>${l.name}${l.q>1?" × "+l.q:""}</span>
+     <b>${l.surDevis?"sur devis":fmt(l.total)+(l.monthly?" /m":"")}</b></div>`).join("");
+ document.getElementById("tOne").textContent=fmt(one)+" HT";
+ document.getElementById("tMon").textContent=fmt(mon)+" HT /mois";
+ document.getElementById("tAll").textContent=fmt(one+mon)+" HT";
+ document.getElementById("mTotal").textContent=fmt(one+mon)+" HT";
+ document.getElementById("mMon").textContent=mon>0?` dont ${fmt(mon)}/mois`:"";
+ updateSend();
+}
+
+function updateSend(){
+ const ok=document.getElementById("cNom").value.trim()&&document.getElementById("cEmail").value.trim()&&linesFor().length>0;
+ document.getElementById("goDevis").disabled=!ok;
+ document.getElementById("goDevisM").disabled=!ok;
+ document.getElementById("hint").style.display=ok?"none":"block";
+}
+
+function renderAll(){renderSections();renderTicket();}
+
+/* ================== DEVIS ================== */
+function showDevis(){
+ const lines=linesFor();
+ const one=lines.filter(l=>!l.monthly&&!l.surDevis).reduce((a,l)=>a+l.total,0);
+ const mon=lines.filter(l=>l.monthly&&!l.surDevis).reduce((a,l)=>a+l.total,0);
+ const sd=lines.filter(l=>l.surDevis).length;
+ const nom=document.getElementById("cNom").value.trim(),ent=document.getElementById("cEnt").value.trim(),
+       email=document.getElementById("cEmail").value.trim(),tel=document.getElementById("cTel").value.trim(),
+       note=document.getElementById("cNote").value.trim();
+ const today=now.toLocaleDateString("fr-FR",{day:"numeric",month:"long",year:"numeric"});
+ const valid=new Date(Date.now()+30*864e5).toLocaleDateString("fr-FR",{day:"numeric",month:"long",year:"numeric"});
+
+ document.getElementById("dNum").textContent="Devis "+DEVIS_NUM;
+ document.getElementById("dDate").textContent="Émis le "+today;
+ document.getElementById("dValid").textContent="Valable jusqu'au "+valid;
+ document.getElementById("dClient").innerHTML=`<div style="font-weight:700;font-size:15px">${esc(nom)}</div>${ent?`<div>${esc(ent)}</div>`:""}<div style="color:var(--grey)">${esc(email)}</div>${tel?`<div style="color:var(--grey)">${esc(tel)}</div>`:""}`;
+ document.getElementById("dLines").innerHTML=lines.map(l=>`<tr>
+  <td><div style="font-weight:600"><span class="dot" style="background:${l.accent};vertical-align:middle;margin-right:8px;margin-top:0"></span>${l.name}${l.monthly?'<span class="badge">/mois</span>':""}</div>
+  <div style="color:var(--grey);font-size:12px;padding-left:16px">${l.section}</div></td>
+  <td style="text-align:center">${l.q}</td>
+  <td style="text-align:right;font-weight:700">${l.surDevis?`<span style="color:var(--amber-text);font-size:12px">Sur devis</span>`:fmt(l.total)}</td></tr>`).join("");
+ document.getElementById("dOne").textContent=fmt(one)+" HT";
+ document.getElementById("dMonRow").style.display=mon>0?"flex":"none";
+ document.getElementById("dMon").textContent=fmt(mon)+" HT /mois";
+ document.getElementById("dAll").textContent=fmt(one+mon)+" HT";
+ const w=document.getElementById("dWarn");
+ w.style.display=sd>0?"block":"none";
+ w.textContent=sd>0?`${sd} prestation${sd>1?"s":""} nécessite${sd>1?"nt":""} un chiffrage personnalisé : le studio reviendra vers vous avec un devis complété sous 48 h ouvrées.`:"";
+ document.getElementById("dNoteWrap").style.display=note?"block":"none";
+ document.getElementById("dNote").textContent=note;
+
+ let body=`Demande de devis ${DEVIS_NUM}\nDate : ${today}\n\nClient : ${nom}${ent?" — "+ent:""}\nEmail : ${email}${tel?"\nTél : "+tel:""}\n\nPRESTATIONS SÉLECTIONNÉES\n`;
+ lines.forEach(l=>{body+=`- ${l.name}${l.q>1?" × "+l.q:""} : ${l.surDevis?"sur devis":fmt(l.total)+" HT"+(l.monthly?" /mois":"")}\n`;});
+ body+=`\nTotal ponctuel : ${fmt(one)} HT`;
+ if(mon)body+=`\nTotal mensuel : ${fmt(mon)} HT /mois`;
+ if(note)body+=`\n\nPrécisions du client :\n${note}`;
+ document.getElementById("mailBtn").href=`mailto:${STUDIO_EMAIL}?cc=${encodeURIComponent(email)}&subject=${encodeURIComponent("Demande de devis "+DEVIS_NUM+(ent?" — "+ent:""))}&body=${encodeURIComponent(body)}`;
+
+ document.getElementById("catalogView").style.display="none";
+ document.getElementById("devisView").classList.add("show");
+ window.scrollTo({top:0});
+}
+function esc(s){const d=document.createElement("div");d.textContent=s;return d.innerHTML;}
+
+/* ================== ÉVÉNEMENTS ================== */
+document.getElementById("devisNumTag").textContent=DEVIS_NUM;
+document.addEventListener("click",e=>{
+ const t=e.target;
+ const tog=t.closest("[data-toggle]");
+ if(tog){openSection=openSection===tog.dataset.toggle?null:tog.dataset.toggle;renderAll();return;}
+ const qb=t.closest(".qbtn");
+ if(qb){e.stopPropagation();const id=qb.dataset.id;sel[id]=Math.max(1,Math.min(99,(sel[id]||1)+(+qb.dataset.q)));renderAll();return;}
+ if(t.closest("[data-stop]"))return;
+ const item=t.closest("[data-item]");
+ if(item){const id=item.dataset.item;if(sel[id])delete sel[id];else sel[id]=1;renderAll();return;}
+ const pk=t.closest("[data-pkg]");
+ if(pk){const k=pk.dataset.pkg,id=pk.dataset.id;pkg[k]=pkg[k]===id?null:id;renderAll();return;}
+});
+document.addEventListener("keydown",e=>{
+ if((e.key==="Enter"||e.key===" ")&&(e.target.matches("[data-item],[data-pkg]"))){e.preventDefault();e.target.click();}
+});
+["cNom","cEmail"].forEach(id=>document.getElementById(id).addEventListener("input",updateSend));
+document.getElementById("goDevis").addEventListener("click",showDevis);
+document.getElementById("goDevisM").addEventListener("click",showDevis);
+document.getElementById("backBtn").addEventListener("click",()=>{
+ document.getElementById("devisView").classList.remove("show");
+ document.getElementById("catalogView").style.display="block";
+});
+
+bands();ticker();renderAll();
+</script>
+</body>
+</html>
